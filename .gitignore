@@ -1,4 +1,3 @@
 
 node_modules
-
-.env
+PROJ_BACKEND/.env
