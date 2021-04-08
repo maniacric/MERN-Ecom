@@ -2,7 +2,17 @@ require('dotenv').config()
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
+var cors = require('cors');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 
+
+//My Routes
+const authRoutes = require("./routes/auth")
+
+
+
+//DB CONNECTION
 mongoose.connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology:true,
@@ -13,9 +23,25 @@ mongoose.connect(process.env.DATABASE, {
 
 
 
+//MIDDLEWARES
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(cors());
 
+
+
+//ROUTES
+app.use("/api",authRoutes);
+//app.use("/api",authroutes)
+//app.use("/api",authroutes)
+
+
+
+//PORT
 const port = process.env.PORT||8000;
 
+
+//SERVER
 app.listen(port,()=>{
     console.log(`app is up and running at port ${port}`);
 }) 
