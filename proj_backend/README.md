@@ -6,5 +6,12 @@ Full fledged  MERN Ecom website with Stripe
 npm install
 
 
+
+//create .env file
+define PORT
+define SECRET
+
+
+
 //start the server
 npm start

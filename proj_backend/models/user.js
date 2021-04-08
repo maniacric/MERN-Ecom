@@ -68,7 +68,7 @@ userSchema.method = {
         if(!plainpassword)
             return "";  
         try{
-            return crypto.createHmac('sha256', secret)
+            return crypto.createHmac('sha256', process.env.SECRET)
             .update('plainpassword')
             .digest('hex');
         } 
