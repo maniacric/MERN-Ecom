@@ -10,7 +10,7 @@ npm install
 //create .env file
 define PORT
 define SECRET
-
+define DATABASE
 
 
 //start the server
