@@ -4,6 +4,7 @@ const { errors } = require("formidable");
 const user = require("../models/user");
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
+const { token } = require("morgan");
 
 
 
@@ -65,8 +66,9 @@ exports.signin = (req,res)=>{
 
 
 exports.signout = (req,res)=>{
+    res.clearCookie("token");
     res.json({
-        message:"User Signout"      
+        message:"User Signout successful"      
     });
 };  
 
