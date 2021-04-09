@@ -73,3 +73,30 @@ exports.signout = (req,res)=>{
 };  
 
 
+//protected Routes
+exports.isSignedin = expressJwt({
+    secret:process.env.SECRET,
+    userProperty:"auth"
+})
+
+
+//custom middlewares
+exports.isAuthenticated = (req,res)=>{
+    
+    let checker  = req.profile && req.auth && req.profile._id === req.auth._id;
+    if(!checker){
+        return res,status(403).json({
+            error: "you are not authorised to proceed "
+        })
+    }
+    next();
+}
+
+exports.isAdmin = (req,res)=>{
+    if(req.profile.role === 0){
+        return res.status(403).json({
+            error:"Access Denied,Admin access only"
+        })
+    }
+    next();
+}
