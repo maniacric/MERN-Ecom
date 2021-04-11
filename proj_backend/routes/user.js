@@ -9,8 +9,10 @@ router.param ("userId",getUserbyId);
 
 router.get("/user/:userId",isSignedin,isAuthenticated,getUser);
 router.put("/user/:userId",isSignedin,isAuthenticated,updateUser)
-router.get("/getAllUsers",getAllUsers);
-//router.get("/order/user/:userId",isSignedin,isAuthenticated,userPurchaseList)
+router.get("/orders/user/:userId",isSignedin,isAuthenticated,userPurchaseList)
+
+
+//router.get("/getAllUsers",getAllUsers);
 
 
 

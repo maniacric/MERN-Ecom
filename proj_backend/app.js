@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 //My Routes
 const authRoutes = require("./routes/auth")
 const userRoutes = require("./routes/user")
+const categoryRoutes = require("./routes/category")
 
 
 
@@ -34,6 +35,7 @@ app.use(cors());
 //ROUTES
 app.use("/api",authRoutes);
 app.use("/api",userRoutes)
+app.use("/api",categoryRoutes)
 //app.use("/api",authroutes)
 
 
