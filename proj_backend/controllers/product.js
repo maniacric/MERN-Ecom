@@ -85,3 +85,80 @@ exports.photo  =(req,res,next) =>{
     }
     next();
 }
+
+exports.deleteProduct = (req,res) =>{
+    let product = req.product;
+    product.remove((err,deletedProduct) =>{
+        if(err){
+            return res.status(400).json({
+                error: "failed to delete the product"
+            })
+        }
+        res.json({
+            message : "product deleted successfully"
+        })
+    })
+}
+
+exports.updateProduct = (req,res) =>{
+    let form = new formidable.IncomingForm();
+    form.keepExtensions = true;
+
+    form.parse(req,(err,fields,file)=>{
+        if(err){
+            return res.status(400).json({
+                error:" problem with image"
+            })
+        }
+
+
+        //product update
+        let product =req.product;
+        product = _.extend(product,fields)
+
+
+        if(file.photo){
+            if(file.photo.size > 3000000){
+                return res.status(400).json({
+                    error:"File size is too big"
+                })
+            }
+            product.photo.data = fs.readFileSync(file.photo.path);
+            product.photo.contentType = file.photo.type
+
+        }
+        //console.log(product);   
+        //save to DB
+        product.save((err,product)=>{
+            if(err){
+                return res.status(400).json({
+                    error: " product could not be updated"    
+                })
+            }
+            res.json(product)
+        })
+       
+    })  
+
+}
+
+
+exports.getAllProducts = (req,res)=>{
+    
+    let limit = req.query.limit ? parseInt(req.query.limit): 8;
+    let sortBy =req.query.sortBy ? req.query.sortBy : "_id";
+
+    Product.find()
+    .select("-photo")
+    .populate("category")
+    .sort([[sortBy,"asc"]])
+    .limit(limit)
+    .exex((err,products) =>{
+        if(err){
+            return res.status(400).json({
+                error: "no product found"
+            })
+        }
+        res.json(prouducts);
+    })
+}
