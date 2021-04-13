@@ -2,6 +2,7 @@ const Product = require("../models/product")
 const formidable = require("formidable");
 const _ = require("lodash");
 const fs = require("fs");
+const product = require("../models/product");
 
 
 
@@ -161,4 +162,25 @@ exports.getAllProducts = (req,res)=>{
         }
         res.json(prouducts);
     })
+}
+
+
+exports.updateStock  = (req,res,next) =>{
+
+    let myoperation = req.body.order.products.map (prod =>{
+        return {
+            updateOne :{
+                filter: {_id : prod._id},
+                update:{$inc: {stock: -prod.count,sold:+prod.count}}
+            }
+        }
+    })
+    Product.bulkWrite (myoperation, {}, (err,products)=>{
+        if(err){
+            return res.status(400).json({
+                error: "bulk operation failed"
+            })
+        }
+    })
+
 }
