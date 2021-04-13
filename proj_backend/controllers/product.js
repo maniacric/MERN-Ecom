@@ -184,3 +184,13 @@ exports.updateStock  = (req,res,next) =>{
     })
 
 }
+
+exports.getAllCategory = (req,res) =>{
+    Product.distinct("category",{},(err,category)=>{
+        if(err){
+            return res.status(400).json({
+                error: "NO category found"
+            })
+        }
+    })
+}
