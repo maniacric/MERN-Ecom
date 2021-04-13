@@ -26,3 +26,14 @@ exports.CreateOrder = (req,res) =>{
         res.json(order);
     })
 }
+
+exports.getAllOrder = (req,res) =>{
+    Order.find().populate("user","name _id").exec((err,order)=>{
+        if(err){
+            return res.status(400).json({
+                error: "no order found"
+            })
+        }
+        res.json(order);
+    })
+}
