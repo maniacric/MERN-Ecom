@@ -1,22 +1,19 @@
-import React from 'react'
-import {BrowserRouter,Switch,Route} from "react-router-dom"
-import Home from './core/Home'
-import SignIn from './user/Signin'
-import Signup from './user/Signup'
-
+import React from "react"
+import {Route,Switch,BrowserRouter} from "react-router-dom"
+import Home from "./core/Home"
+import Signup from "../src/user/Signup"
+import Signin from "../src/user/Signin"
 
 export default function Routes(){
     return (
-        <BrowserRouter>
-            <Switch>
-                <Route path = "/" exact component = {Home}>
-                </Route>
-                <Route path = "/signup" exact component = {Signup}>
-                </Route>
-                <Route path = "/signin" exact component = {SignIn}>
-                </Route>
-            </Switch>
-        </BrowserRouter>
+        <div>   
+            <BrowserRouter>
+                <Switch>
+                    <Route path ="/" exact component={Home} />
+                    <Route path = "/Signup" exact component ={Signup}/>
+                    <Route path = "/Signin" exact component ={Signin}/>
+                </Switch>
+            </BrowserRouter>
+        </div>
     )
 }
-

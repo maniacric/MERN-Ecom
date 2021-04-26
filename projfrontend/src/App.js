@@ -1,15 +1,13 @@
-import logo from './logo.svg';
+import React from 'react'
 
-
-export default function App (){
+export default function () {
   return (
     <div>
       <h1>
-        Hi
+        Hii
       </h1>
     </div>
   )
 }
 
-
-export default App;
+//export default 
