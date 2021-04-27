@@ -1,5 +1,6 @@
-import React from "react"
+import React, { Fragment } from "react"
 import {Link,withRouter} from "react-router-dom"
+import { isAuthenticated, signout } from "../auth/helper"
 
 const currentTab = (history,path) =>{
     if(history.location.pathname === path){
@@ -19,21 +20,33 @@ const Menu = (history)=>{
                     Home
                 </Link>
             </li>
-            <li className = "nav-item">
-                <Link style ={currentTab(history,"/Signup")} className = "nav-link" to="/Signup">
-                    Signup
-                </Link>
-            </li>
-            <li className = "nav-item">
-                <Link style ={currentTab(history,"/Signin")} className = "nav-link" to="/Signin">
-                    Signin
-                </Link>
-            </li>
-            <li className = "nav-item">
-                <Link style ={currentTab(history,"/Signout")} className = "nav-link" to="/Signout">
-                    Signout
-                </Link>
-            </li>
+            {!isAuthenticated() && (
+                   <Fragment>
+                   <li className = "nav-item">
+                       <Link style ={currentTab(history,"/Signup")} className = "nav-link" to="/Signup">
+                           Signup
+                       </Link>
+                   </li>
+                   <li className = "nav-item">
+                       <Link style ={currentTab(history,"/Signin")} className = "nav-link" to="/Signin">
+                           Signin
+                       </Link>
+                   </li>
+                   </Fragment>
+            )}
+            {isAuthenticated() && (
+                <li className = "nav-item">
+                    <span className="nav-link text-warning"
+                        onClick= {()=>{
+                            signout(()=>{
+                                history.push("/")
+                            })
+                        }}
+                    >
+                        Signout
+                    </span>
+                </li>
+            )}
             <li className = "nav-item">
                 <Link style ={currentTab(history,"/Cart")} className = "nav-link" to="/Cart">
                     Cart
