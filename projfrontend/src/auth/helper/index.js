@@ -10,7 +10,6 @@ export const signup  = user =>{
         body: JSON.stringify(user)
     })
     .then(response =>{
-        //console.log("success")
         return response.json();
 
     })

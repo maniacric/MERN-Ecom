@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const  AdminDashBoard = ()=>{
     
-    const {user:{name ,email,user}} =isAuthenticated();
+    const {user:{name ,email}} =isAuthenticated();
     const adminLeftside = ()=>{
         return(
             <div className = "card">

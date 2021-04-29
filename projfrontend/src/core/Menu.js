@@ -32,7 +32,7 @@ const Menu = (history)=>{
                      </Link>
                  </li>
             )}
-            {isAuthenticated() && isAuthenticated().user.role===1 &&(
+            {isAuthenticated() && isAuthenticated().user.role === 1 &&(
                 <li className = "nav-item">
                 <Link style ={currentTab(history,"/admin/dashboard")} className = "nav-link" to="/admin/dashboard">
                     Admin Dashboard
@@ -54,15 +54,14 @@ const Menu = (history)=>{
                    </li>
                    </Fragment>
             )}
+
             {isAuthenticated() && (
                 <li className = "nav-item">
                     <span className="nav-link text-warning"
-                        onClick= {()=>{
-                            signout(()=>{
-                                history.push("/")
-                            })
-                        }}
-                    >
+                    onClick={()=>{signout(()=>{
+                        history.push("/")
+                    })
+                }}>
                         Signout
                     </span>
                 </li>
