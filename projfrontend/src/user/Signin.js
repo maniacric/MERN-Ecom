@@ -1,8 +1,41 @@
 import React, { useState } from "react";
 import Base from "../core/Base";
 import { Link } from "react-router-dom";
+import { signin, isAutheticated,authenticate} from "../auth/helper"; 
+
 
 const Signin = () => {
+
+  const [values, setvalues] = useState({
+    email:"",
+    password:"",
+    error:"",
+    loading:false,
+    didRedirect:false
+  })
+
+  const {email,password,error,loading,didRedirect}  = values
+
+  const successMessage = () =>(
+    <div className ="alert alert-success"
+      style = {{display:success ? "" : "none"}}
+  > New Accout created successfully
+  Please{" "}<Link >Login Here </Link>
+    </div>
+  )
+
+  const errorMessage = () =>(
+    <div className ="alert alert-danger"
+      style = {{display:error ? "" : "none"}}
+  > {error}
+    </div>
+  )
+
+  const handleChange = name => event => {
+    setValues({ ...values, error: false, [name]: event.target.value });
+  };
+
+
   const signInForm = () => {
     return (
       <div className="row">
@@ -23,6 +56,9 @@ const Signin = () => {
       </div>
     );
   };
+
+
+
 
   return (
     <Base title="Sign In page" description="A page for user to sign in!">
