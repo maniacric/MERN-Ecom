@@ -9,12 +9,13 @@ const Signin = () => {
   const [values, setvalues] = useState({
     email:"",
     password:"",
+    success:"",
     error:"",
     loading:false,
     didRedirect:false
   })
 
-  const {email,password,error,loading,didRedirect}  = values
+  const {email,password,error,success,loading,didRedirect}  = values
 
   const successMessage = () =>(
     <div className ="alert alert-success"
@@ -32,9 +33,27 @@ const Signin = () => {
   )
 
   const handleChange = name => event => {
-    setValues({ ...values, error: false, [name]: event.target.value });
+    setvalues({ ...values, error: false, [name]: event.target.value });
   };
 
+  const onSubmit = event =>{
+    event.preventDefault();
+    setvalues({...values,error:false,loading:true})
+    signin({email,password})
+    .then(data=>{
+      if(data.error){
+        setvalues({...values,error:data.error,loading:false})
+      }else{
+        authenticate(data,()=>{
+          setvalues({
+            ...values,
+            didRedirect:true
+          })
+        })
+      }
+    })
+    .catch(console.log("signin request failed"))
+  }
 
   const signInForm = () => {
     return (
@@ -43,14 +62,14 @@ const Signin = () => {
           <form>
             <div className="form-group">
               <label className="text-light">Email</label>
-              <input className="form-control" type="email" />
+              <input value = {email} className="form-control" type="email" />
             </div>
 
             <div className="form-group">
               <label className="text-light">Password</label>
-              <input className="form-control" type="password" />
+              <input value= {password} className="form-control" type="password" />
             </div>
-            <button className="btn btn-success btn-block">Submit</button>
+            <button onClick = {onsubmit} className="btn btn-success btn-block">Submit</button>
           </form>
         </div>
       </div>
