@@ -66,7 +66,7 @@ const Menu = ({ history }) => (
             </Link>
           </li>
         </Fragment>
-      )}
+      )} 
       {isAuthenticated() && (
         <li className="nav-item">
           <span
