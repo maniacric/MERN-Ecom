@@ -10,6 +10,7 @@ export const signup = user => {
     body: JSON.stringify(user)
   })
     .then(response => {
+      console.log(response);
       return response.json();
     })
     .catch(err => {
@@ -32,9 +33,8 @@ export const signin = user => {
     })
     .catch(err => {
       console.log(err);
-      return err;
       });
-};
+};  
 
 export const authenticate = (data, next) => {
   if (typeof window !== "undefined") {
@@ -56,11 +56,11 @@ export const signout = next => {
   }
 };
 
-export const isAutheticated = () => {
+export const isAuthenticated = () => {
   if (typeof window == "undefined") {
     return false;
   }
-  if (localStorage.getItem("jwt")) {
+  else if (localStorage.getItem("jwt")) {
     return JSON.parse(localStorage.getItem("jwt"));
   } else {
     return false;
