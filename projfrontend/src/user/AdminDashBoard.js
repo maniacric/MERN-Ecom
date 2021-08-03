@@ -48,11 +48,16 @@ const AdminDashBoard= () =>{
     const adminRightSide = () =>{
         return (
              <div className = "card">
-                <h4 className ="card-header bg-success text-white">
-                    Admin Navigation
-                   
+                <h4 className ="card-header bg-success text-white">Admin Information</h4>
+                <ul className ="list-group">
+                    <li className ="list-group-item">
+                        <span className = "bg badge-dark mr-2">Name:</span>{name}
+                    </li>
+                    <li className ="list-group-item">
+                        <span className = "bg badge-dark mr-2">Email:</span>{email}
+                    </li>
+                </ul>
 
-                </h4>
             </div>
         )
     }
@@ -60,14 +65,13 @@ const AdminDashBoard= () =>{
     return (
         <Base title ="Welcome to Admin Dashboard"
             description  ="Manage all Products"
-            className ="container bg-info p-5-4"
-        >
+            className ="container bg-info p-5-4">
             <div className = "row">
                 <div className ="col-3">   
                     {adminLeftSide()}
                 </div>
                 <div className ="col-9"> 
-                    
+                    {adminRightSide()}
                 </div>
             </div>
         </Base>
