@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { signout, isAuthenticated } from "../auth/helper";
 
+
 const currentTab = (history, path) => {
   if (history.location.pathname === path) {
     return { color: "#2ecc72" };
@@ -27,7 +28,9 @@ const Menu = ({ history }) => (
           Cart
         </Link>
       </li>
-      <li className="nav-item">
+      
+
+      {isAuthenticated() && (<li className="nav-item">
         <Link
           style={currentTab(history, "/user/dashboard")}
           className="nav-link"
@@ -35,8 +38,9 @@ const Menu = ({ history }) => (
         >
           U.Dashboard
         </Link>
-      </li>
-      <li className="nav-item">
+      </li>)}
+      
+      {isAuthenticated() && (<li className="nav-item">
         <Link
           style={currentTab(history, "/admin/dashboard")}
           className="nav-link"
@@ -44,7 +48,8 @@ const Menu = ({ history }) => (
         >
           A. Dashboard
         </Link>
-      </li>
+      </li>)}
+
       {!isAuthenticated() && (
         <Fragment>
           <li className="nav-item">

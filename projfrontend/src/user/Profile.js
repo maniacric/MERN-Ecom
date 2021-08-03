@@ -1,14 +1,12 @@
-import React from 'react'
-import Base from '../core/Base'
+import React, { Profiler } from 'react'
+import Base from '../core/Base';
 
-const UserDashBoard= () =>{
+const Profile = ()=> {
     return (
-        <div>
-            <Base title ="Profile">
-                <h1>Hello User</h1>
-            </Base>
-        </div>
+        <Base title= "profile page">
+            <h1>This is profile page</h1>
+        </Base> 
     )
-}
+};
 
-export default UserDashBoard;
+export default Profile;
