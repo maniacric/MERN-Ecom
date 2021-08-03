@@ -40,7 +40,7 @@ const Menu = ({ history }) => (
         </Link>
       </li>)}
       
-      {isAuthenticated() && (<li className="nav-item">
+      {isAuthenticated() && isAuthenticated().user.role === 1  && (<li className="nav-item">
         <Link
           style={currentTab(history, "/admin/dashboard")}
           className="nav-link"

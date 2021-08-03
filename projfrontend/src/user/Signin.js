@@ -45,14 +45,17 @@ const Signin = () =>{
  
   const performRedirect = () => {
     //TODO: do a redirect here
+
     if (didRedirect) {
       if (user && user.role === 1) {
         return <Redirect to= "/admin/dashboard"/>;
       } else {
         return <Redirect to= "/user/dashboard"/>;
       }
+      if(isAuthenticated()){
+        return <Redirect to = "/"/>
+      }
     }
-   
   };
 
   const loadingMessage = () => {
