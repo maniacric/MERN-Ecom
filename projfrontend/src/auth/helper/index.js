@@ -33,6 +33,7 @@ export const signin = user => {
     })
     .catch(err => {
       console.log(err);
+      return err;
       });
 };  
 
