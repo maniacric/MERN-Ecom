@@ -56,6 +56,9 @@ const AdminDashBoard= () =>{
                     <li className ="list-group-item">
                         <span className = "bg badge-dark mr-2">Email:</span>{email}
                     </li>
+                    <li className ="list-group-item">
+                        <span className = "bg badge-dark mr-2">Role:</span>Admin        
+                    </li>
                 </ul>
 
             </div>
