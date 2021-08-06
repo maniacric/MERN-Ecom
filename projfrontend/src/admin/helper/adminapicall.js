@@ -9,7 +9,7 @@ export const createCategory = (userId,token,category) =>{
         headers:{
             Accept:"application/json",
             "Content-type":"application/json",
-            Authorization: `Bearer${token}`
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(category)
 
