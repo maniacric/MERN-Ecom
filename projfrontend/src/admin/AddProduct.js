@@ -1,10 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom';
+import { isAuthenticated} from '../auth/helper';
 import Base from '../core/Base';
-import { getCategories } from './helper/adminapicall';
+import { createCategory, createProduct, getCategories } from './helper/adminapicall';
+
 
 const AddProduct = () =>{
 
+
+    const {user,token} = isAuthenticated();
 
     const [values, setvalues] = useState({
         name:"",
@@ -34,7 +38,7 @@ const AddProduct = () =>{
             if(data.error){
                 setvalues({...values,error:data.error})
             }else{
-                setvalues({...values,categories:data, formData:new formData()});
+                setvalues({...values,categories:data, formData:new FormData()});
             }
         })
     }
@@ -44,12 +48,47 @@ const AddProduct = () =>{
        preload();
     }, []);
 
-    const onSubmit = () =>{
 
+    const successMessage = () =>{
+        <div
+            className ="alert alert-success mt-3"
+        >
+            <h4>{createProduct} created Successfully</h4>
+        </div>
     }
 
-    const handleChange = name => event =>{
+    const errorMessage = () =>{
+        if(error){
+            return <h4 className ="text-success"> failed to create category</h4>
+        }
+    }
 
+    const onSubmit = (event) =>{
+        event.preventDefault();
+        setvalues({...values,error:"",loading: true})
+        createProduct(user._id,token,FormData).then(data=>{
+            if(data.error){
+                setvalues({...values,error:data.error})
+            }else{
+                setvalues({
+                    ...values,
+                    name:"",
+                    description:"",
+                    price:"",
+                    stock:"",
+                    loading: false,
+                    createProduct: data.name
+                })
+            }
+        })
+        .catch( )
+    
+    }   
+
+    const handleChange = name => event =>{
+        const value = name === "photo" ? event.target.file [0]:event.target.value 
+        formData.set(name,value);
+        setvalues({...values,[name]: value})
     }
 
     const createProductForm = () => (
@@ -100,13 +139,16 @@ const AddProduct = () =>{
               placeholder="Category"
             >
               <option>Select</option>
-              <option value="a">a</option>
-              <option value="b">b</option>
+              {categories && 
+                categories.map((cate,index)=>(
+                    <option key ={index} value ={cate._id} >{cate.name}</option>
+                ))
+              }
             </select>
           </div>
           <div className="form-group">
             <input
-              onChange={handleChange("quantity")}
+              onChange={handleChange("stock")}
               type="number"
               className="form-control"
               placeholder="Quantity"
@@ -131,6 +173,7 @@ const AddProduct = () =>{
             </Link>
             <div className = "row bg-dark text-white rounded">
                 <div className ="col-md-8 offset-md-2">
+                    {successMessage}
                     {createProductForm()}
                 </div>
             </div>
