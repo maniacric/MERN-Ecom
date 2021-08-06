@@ -1,18 +1,48 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom';
 import Base from '../core/Base';
+import { getCategories } from './helper/adminapicall';
 
 const AddProduct = () =>{
 
 
-    const [Values, setValues] = useState({
+    const [values, setvalues] = useState({
         name:"",
         description:"",
         price:"",
         stock:""
     })
 
-    const {name,description,price,stock} = Values;
+    const {name,
+        description,
+        price,
+        stock,
+        categories,
+        category,
+        loading,
+        error,
+        createdProduct,
+        getRedirect,
+        formData
+    
+    } = values;
+
+
+    const preload = () =>{
+        getCategories().then(data =>{
+            console.log(data);
+            if(data.error){
+                setvalues({...values,error:data.error})
+            }else{
+                setvalues({...values,categories:data, formData:new formData()});
+            }
+        })
+    }
+
+
+    useEffect(() => {
+       preload();
+    }, []);
 
     const onSubmit = () =>{
 
