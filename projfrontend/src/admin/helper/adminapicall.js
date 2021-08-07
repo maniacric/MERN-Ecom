@@ -41,15 +41,16 @@ export  const getCategories = () =>{
 
 
 export const createProduct  = (userId,token,product) =>{
+
     return fetch(`${API}/product/create/${userId}`,{
-        method: " POST",
+        method: "POST",
         headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`
         },
         body : product
     }).then(response =>{
-        return response.json()
+        return response.json();
     }).catch(err => {
         console.log(err);
         return err;
