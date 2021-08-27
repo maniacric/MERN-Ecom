@@ -79,11 +79,11 @@ exports.getProduct = (req,res) =>{
     return res.json(req.product); 
 }
 
-exports.photo  =(req,res,next) =>{
+exports.photo  = (req,res,next) =>{
     if(req.product.photo.data){
         res.set("Content-Type",req.product.photo.contentType)
         return res.send(req.product.photo.data);
-    }
+    }  
     next();
 }
 
@@ -154,15 +154,15 @@ exports.getAllProducts = (req,res)=>{
     .populate("category")
     .sort([[sortBy,"asc"]])
     .limit(limit)
-    .exex((err,products) =>{
-        if(err){
+    .exec((err,products) =>{
+        if(err || !products){
             return res.status(400).json({
                 error: "no product found"
             })
         }
-        res.json(prouducts);
+        res.json(products);
     })
-}
+}   
 
 
 exports.updateStock  = (req,res,next) =>{
