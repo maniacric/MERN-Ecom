@@ -1,8 +1,8 @@
 import React from 'react'
 import Base from '../core/Base'
+
 import { isAuthenticated } from '../auth/helper'
 
-const {user: {name,email,role}} =  isAuthenticated();
 
 
 const UserDashBoard= () =>{
