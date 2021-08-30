@@ -6,7 +6,7 @@ const ManageCategories = ()=> {
        <Base title = "Manage Category here" 
        description = "update delete read functionality">
         <h1>
-            Assignments
+            TO DO
         </h1>
        </Base>
     )

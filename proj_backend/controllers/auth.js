@@ -84,9 +84,13 @@ exports.isSignedin = expressJwt({
 exports.isAuthenticated = (req,res,next)=>{
     
     let checker  = req.profile && req.auth && req.profile._id == req.auth._id;
-    if(!checker){
+    //console.log(req.auth);
+    //console.log(req.profile._id);
+    //console.log(req.auth._id)
+    //console.log(checker);
+    if(checker==false){
         return res.status(403).json({
-            error: "you are not authorised to proceed "
+            error: "you are not authorised to proceed"
         })
     }
     next();

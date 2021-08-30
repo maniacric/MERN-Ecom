@@ -1,4 +1,9 @@
+const express = require('express');
+const router = express.Router();
 const braintree = require("braintree");
+const jwt = require("express-jwt");
+
+
 
 const gateway = new braintree.BraintreeGateway({
   environment: braintree.Environment.Sandbox,
@@ -8,7 +13,7 @@ const gateway = new braintree.BraintreeGateway({
 });
 
 exports.getToken = (req,res) =>{
-    gateway.clientToken.generate({}, (err, response) => {
+    gateway.clientToken.generate({},function(err, response){
         if(err){
             res.status(500).json(err)
         }else{
@@ -18,17 +23,16 @@ exports.getToken = (req,res) =>{
 
 }
 
-exports.processPayment = () =>{
+exports.processPayment = (req,res) =>{
     let nonceFromTheClient = req.body.paymentMethodNonce
     let amount = req.body.amount
     gateway.transaction.sale({
-        amount: "10.00",
+        amount: amount,
         paymentMethodNonce: nonceFromTheClient,
-        deviceData: deviceDataFromTheClient,
         options: {
           submitForSettlement: true
         }
-      }, (err, result) => {
+      }, function(err, result) {
         if(err){
             res.status(500).json(err)
         }else{
